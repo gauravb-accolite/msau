@@ -1,11 +1,11 @@
 package com.accolite.msau.entities;
 
-public class User {
+public class Employee {
     private String email;
     private String name;
-    private String phone;
+    private String mob;
 
-    public User() {
+    public Employee() {
     }
 
     public String getEmail() {
@@ -24,11 +24,11 @@ public class User {
         this.name = name;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getMob() {
+        return mob;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setMob(String mob) {
+        this.mob = mob;
     }
 }
