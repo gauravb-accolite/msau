@@ -1,6 +1,7 @@
 package com.accolite.msau.entities;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Onboardee {
     private String email;
@@ -12,6 +13,7 @@ public class Onboardee {
     private Boolean project;
     private String name;
     private String phone;
+    private List<String> skills;
 
     public Onboardee() {
     }
@@ -86,5 +88,13 @@ public class Onboardee {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public List<String> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<String> skills) {
+        this.skills = skills;
     }
 }

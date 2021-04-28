@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class OnboardeeController {
 
     @Autowired
@@ -19,9 +20,9 @@ public class OnboardeeController {
 
     @GetMapping("/onboardees")
     public List<Onboardee> getAllOnboardees() {
-        String sqlQuery = "SELECT email, demand_id as demandId, onboarding_start as onboardingStart, onboarding_end as onboardingEnd, bg_check as bgCheck, training, project FROM onboardee";
+        String sqlQuery = "SELECT name, onboardee.email, demand_id as demandId, onboarding_start as onboardingStart, onboarding_end as onboardingEnd FROM onboardee INNER JOIN employee ON onboardee.email = employee.email";
         try {
-            return jdbcTemplate.query(sqlQuery, new BeanPropertyRowMapper<>(Onboardee.class));
+            return jdbcTemplate.queryForList(sqlQuery, Onboardee.class);
         } catch (DataAccessException e) {
             System.out.println("Data Access Exception\t" + e.toString());
             return null;
@@ -33,9 +34,14 @@ public class OnboardeeController {
 
     @GetMapping("/onboardee")
     public Onboardee getOnboardee(@RequestParam String email) {
-        String sqlQuery = "SELECT onboardee.email, demand_id as demandId, onboarding_start as onboardingStart, onboarding_end as onboardingEnd, bg_check as bgCheck, training, project, name, mob FROM onboardee INNER JOIN employee ON onboardee.email = employee.email WHERE onboardee.email = ?";
+        String sqlQuery = "SELECT onboardee.email, demand_id as demandId, msHiringManager, onboarding_start as onboardingStart, onboarding_end as onboardingEnd, bg_check as bgCheck, training, project, name, mob FROM onboardee INNER JOIN employee ON onboardee.email = employee.email AND onboardee.email = ? INNER JOIN demand ON onboardee.demand_id = id";
         try {
-            return jdbcTemplate.queryForObject(sqlQuery, new BeanPropertyRowMapper<>(Onboardee.class), email);
+            Onboardee reqdOnboardee = jdbcTemplate.queryForObject(sqlQuery, Onboardee.class, email);
+
+            String skillsQuery = "SELECT skill from employee_skills WHERE email = ?";
+            reqdOnboardee.setSkills(jdbcTemplate.queryForList(skillsQuery, String.class, email));
+            return  reqdOnboardee;
+
         } catch (DataAccessException e) {
             System.out.println("Data Access Exception\t" + e.toString());
             return null;
