@@ -22,7 +22,7 @@ public class OnboardeeController {
     public List<Onboardee> getAllOnboardees() {
         String sqlQuery = "SELECT name, onboardee.email, demand_id as demandId, onboarding_start as onboardingStart, onboarding_end as onboardingEnd FROM onboardee INNER JOIN employee ON onboardee.email = employee.email";
         try {
-            return jdbcTemplate.queryForList(sqlQuery, Onboardee.class);
+            return jdbcTemplate.query(sqlQuery, new BeanPropertyRowMapper<>(Onboardee.class));
         } catch (DataAccessException e) {
             System.out.println("Data Access Exception\t" + e.toString());
             return null;
@@ -36,7 +36,7 @@ public class OnboardeeController {
     public Onboardee getOnboardee(@RequestParam String email) {
         String sqlQuery = "SELECT onboardee.email, demand_id as demandId, msHiringManager, onboarding_start as onboardingStart, onboarding_end as onboardingEnd, bg_check as bgCheck, training, project, name, mob FROM onboardee INNER JOIN employee ON onboardee.email = employee.email AND onboardee.email = ? INNER JOIN demand ON onboardee.demand_id = id";
         try {
-            Onboardee reqdOnboardee = jdbcTemplate.queryForObject(sqlQuery, Onboardee.class, email);
+            Onboardee reqdOnboardee = jdbcTemplate.queryForObject(sqlQuery, new BeanPropertyRowMapper<>(Onboardee.class), email);
 
             String skillsQuery = "SELECT skill from employee_skills WHERE email = ?";
             reqdOnboardee.setSkills(jdbcTemplate.queryForList(skillsQuery, String.class, email));
