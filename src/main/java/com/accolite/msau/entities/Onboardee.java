@@ -6,6 +6,7 @@ import java.util.List;
 public class Onboardee {
     private String email;
     private String demandId;
+    private String msHiringManager;
     private LocalDate onboardingStart;
     private LocalDate onboardingEnd;
     private Boolean bgCheck;
@@ -32,6 +33,13 @@ public class Onboardee {
 
     public void setDemandId(String demandId) {
         this.demandId = demandId;
+    }
+    public String getMsHiringManager() {
+        return msHiringManager;
+    }
+
+    public void setMsHiringManager(String msHiringManager) {
+        this.msHiringManager = msHiringManager;
     }
 
     public LocalDate getOnboardingStart() {

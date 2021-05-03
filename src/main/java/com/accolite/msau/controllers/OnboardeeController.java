@@ -34,7 +34,7 @@ public class OnboardeeController {
 
     @GetMapping("/onboardee")
     public Onboardee getOnboardee(@RequestParam String email) {
-        String sqlQuery = "SELECT onboardee.email, demand_id as demandId, msHiringManager, onboarding_start as onboardingStart, onboarding_end as onboardingEnd, bg_check as bgCheck, training, project, name, mob FROM onboardee INNER JOIN employee ON onboardee.email = employee.email AND onboardee.email = ? INNER JOIN demand ON onboardee.demand_id = id";
+        String sqlQuery = "SELECT onboardee.email, demand_id as demandId, msHiringManager, onboarding_start as onboardingStart, onboarding_end as onboardingEnd, bg_check as bgCheck, training, project, name, mob as phone FROM onboardee INNER JOIN employee ON onboardee.email = employee.email AND onboardee.email = ? INNER JOIN demand ON onboardee.demand_id = id";
         try {
             Onboardee reqdOnboardee = jdbcTemplate.queryForObject(sqlQuery, new BeanPropertyRowMapper<>(Onboardee.class), email);
 
@@ -64,5 +64,4 @@ public class OnboardeeController {
             return 0;
         }
     }
-
 }

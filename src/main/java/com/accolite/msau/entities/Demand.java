@@ -2,7 +2,7 @@ package com.accolite.msau.entities;
 
 public class Demand {
     private String id;
-    private String msHiringManagerName;
+    private String msHiringManager;
 
     public Demand() {
     }
@@ -15,11 +15,11 @@ public class Demand {
         this.id = id;
     }
 
-    public String getMsHiringManagerName() {
-        return msHiringManagerName;
+    public String getMsHiringManager() {
+        return msHiringManager;
     }
 
-    public void setMsHiringManagerName(String msHiringManagerName) {
-        this.msHiringManagerName = msHiringManagerName;
+    public void setMsHiringManager(String msHiringManager) {
+        this.msHiringManager = msHiringManager;
     }
 }

@@ -3,7 +3,7 @@ package com.accolite.msau.entities;
 public class Employee {
     private String email;
     private String name;
-    private String mob;
+    private String phone;
 
     public Employee() {
     }
@@ -24,11 +24,11 @@ public class Employee {
         this.name = name;
     }
 
-    public String getMob() {
-        return mob;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setMob(String mob) {
-        this.mob = mob;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
