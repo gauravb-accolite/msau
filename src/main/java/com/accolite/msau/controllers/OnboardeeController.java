@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -79,4 +80,17 @@ public class OnboardeeController {
         }
     }
 
+    @PostMapping("/deleteOnboardee")
+    public int deleteOnboardee(@RequestBody Map<String, String> body) {
+        String sqlQuery = "DELETE FROM onboardee WHERE email=?";
+        try {
+            return jdbcTemplate.update(sqlQuery, body.get("email"));
+        } catch (DataAccessException e) {
+            System.out.println("Data Access Exception\t" + e.toString());
+            return 0;
+        } catch (Exception e) {
+            System.out.println("Exception\t" + e.toString());
+            return 0;
+        }
+    }
 }
