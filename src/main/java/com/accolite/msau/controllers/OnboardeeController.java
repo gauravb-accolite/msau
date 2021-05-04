@@ -64,4 +64,19 @@ public class OnboardeeController {
             return 0;
         }
     }
+
+    @PostMapping("/updateOnboardee")
+    public int updateOnboardee(@RequestBody Onboardee updatedOnboardee) {
+        String sqlQuery = "UPDATE onboardee SET demand_id=?, onboarding_start=?, onboarding_end=?, bg_check=?, training=?, project=? WHERE email=?";
+        try {
+            return jdbcTemplate.update(sqlQuery, updatedOnboardee.getDemandId(), updatedOnboardee.getOnboardingStart(), updatedOnboardee.getOnboardingEnd(), updatedOnboardee.getBgCheck(), updatedOnboardee.getTraining(), updatedOnboardee.getProject(), updatedOnboardee.getEmail());
+        } catch (DataAccessException e) {
+            System.out.println("Data Access Exception\t" + e.toString());
+            return 0;
+        } catch (Exception e) {
+            System.out.println("Exception\t" + e.toString());
+            return 0;
+        }
+    }
+
 }
