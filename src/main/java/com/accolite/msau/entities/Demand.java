@@ -7,6 +7,11 @@ public class Demand {
     public Demand() {
     }
 
+    public Demand(String id, String msHiringManager) {
+        this.id = id;
+        this.msHiringManager = msHiringManager;
+    }
+
     public String getId() {
         return id;
     }
